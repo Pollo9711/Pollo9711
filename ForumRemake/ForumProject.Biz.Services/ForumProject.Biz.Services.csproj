@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ForumProject.Biz.Domain\ForumProject.Biz.Domain.csproj" />
+    <ProjectReference Include="..\ForumProject.Biz.Interfaces\ForumProject.Biz.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>
