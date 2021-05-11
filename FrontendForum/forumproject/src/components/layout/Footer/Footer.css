@@ -2,15 +2,18 @@
     display: flex;
     justify-content: space-between;
     background-color: #282c34;
-    height: 120px;
+    height: 10px;
     color: white;
     padding: 3%;
     align-items: center;
     align-content: center;
-
 }
-
+a{
+    color: white;
+}
+#logoRobot:hover{
+    color: aquamarine;   
+}
 #footer p{
-    margin-right: 70%;
-    margin-bottom: 0;
+    margin: 0 70% 0 0;
 }

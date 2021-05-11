@@ -1,0 +1,41 @@
+a{
+    list-style: none;
+    text-decoration: none;
+    color: white; 
+}
+a:hover{
+    color:aquamarine;
+}
+.postBox{
+    background-color: #282c34;
+    color: white;   
+    border-radius: 20px;
+    width: 50%;
+    margin-top: 5%;
+    padding: 2%;
+}
+.postBox h3{
+    padding: 1%;
+}
+.postImg{
+    background-color: blueviolet;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    padding: 2%;
+}
+.postHead{
+    display:flex;
+    justify-content: space-between;
+}
+.postFoot{
+    display:flex;
+    justify-content: space-between;
+}
+#heart{
+    font-size: 25px;
+    padding: 1%;
+}
+#heart:hover{
+    color: palevioletred;
+}
