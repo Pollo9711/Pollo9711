@@ -16,6 +16,7 @@ const Navbar = () => {
                                 <button className="btn btn-outline-success" type="submit"><FontAwesomeIcon icon={faSearch}/></button>
                                 <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         </form>
+                        <h1>FORUM</h1>
                         <nav>
                             <ul>
                                 <li>

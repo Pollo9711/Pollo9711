@@ -12,7 +12,8 @@
 .logoInput{
     display: flex;
     align-items: center;
-    padding: 0.7% ;
+    padding: 0.7%;
+    justify-items: center;
 
 }
 
@@ -50,11 +51,12 @@
 #navbar nav ul li{
     margin-right: 20px;
     font-size: 15px;
+    font-family: open san,sans-serif;
 
 }
 
 #navbar nav{
-    margin-left: 50%;
+    margin-left: 40%;
 }
 
 #navbar a{
@@ -70,7 +72,14 @@
 
 #logo{
     font-size: 30px;
+
 }
 #logo:hover{
     font-size: 30px !important;
+}
+
+h1{
+    font-family: open san,sans-serif;
+    color: white;
+    font-size: 25px;
 }
