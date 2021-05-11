@@ -1,4 +1,5 @@
 import {useState} from "react";
+import './Registrati.css';
 
 // NB CSS DA FARE
 
@@ -27,23 +28,37 @@ const Registrati = () => {
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+        
+            <h2>Sign In</h2>
+
+            <div className={'formSignIn'}>
+
+            <form onSubmit={handleSubmit} className={'formInput'}>
+                
+                <p>Your Username:</p>
                 <input type="text"
                        placeholder={'Username'}
                        name={'username'}
                        value={formValue.username}
                        onChange={handleChange}
                 />
-
-                <input type="text"
+                
+                <p>Your Password:</p>
+                <input type="password"
                        placeholder={'Password'}
                        name={'password'}
                        value={formValue.password}
                        onChange={handleChange}
                 />
-
-                <button type={'submit'}>Submit</button>
+                
             </form>
+
+            <div className={'buttonDiv'}>
+                <button type={'submit'} class="btn btn-dark">Submit</button>
+            </div>
+
+            </div>
+
         </>
     );
 }
