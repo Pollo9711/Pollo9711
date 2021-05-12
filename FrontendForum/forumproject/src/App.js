@@ -8,6 +8,8 @@ import Footer from "./components/layout/Footer/Footer";
 import ListPost from "./components/core/ListPost/ListPost";
 import Home from "./components/core/Home/Home";
 import Profile from "./components/core/Profile/Profile";
+import Registrati from "./components/core/Registrati/Registrati";
+import Login from "./components/core/Login/Login";
 
 
 
@@ -22,7 +24,8 @@ function App() {
                 <Route path={'/'} element={<Home/>} />
                 <Route path={'/post'} element={<ListPost/>} />
                 <Route path={'/profile'} element={<Profile/>} />
-                <Route path={'/registrati'} element={<Registrati/>} />
+                <Route path={'/registrati'} element={<Registrati/>}/>
+                <Route path={'/login'} element={<Login/>}/>
               </Routes>
 
             </div>
