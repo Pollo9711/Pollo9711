@@ -1,9 +1,9 @@
 import {useState} from "react";
-import './Registrati.css';
+import './Login.css';
 
 // NB CSS DA FARE
 
-const Registrati = () => {
+const Login = () => {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -63,4 +63,4 @@ const Registrati = () => {
     );
 }
 
-export default Registrati;
+export default Login;
