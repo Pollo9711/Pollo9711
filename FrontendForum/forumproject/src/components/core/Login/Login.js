@@ -29,9 +29,9 @@ const Login = () => {
     return (
         <>
         
-            <h2>Sign In</h2>
+            <h2>Login</h2>
 
-            <div className={'formSignIn'}>
+            <div className={'formLogin'}>
 
             <form onSubmit={handleSubmit} className={'formInput'}>
                 
