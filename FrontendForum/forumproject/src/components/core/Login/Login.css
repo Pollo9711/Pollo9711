@@ -5,14 +5,14 @@ p{
     padding: 2%;
     margin: 0 10px;
 }
-.formSignIn{
+.formLogin{
     padding: 1%;
     margin: 2% 25%;
     border: 1px solid #555;
     border-radius: 5px;
     width: 50%;
 }
-.buttonSignIn{
+.buttonLogin{
     
 }
 .buttonDiv{

@@ -34,7 +34,7 @@ const Navbar = () => {
                                 <h1>FORUM</h1>
                         </form>
                         <div className={"menu"}>
-                            <button id={"login"} className="btn btn-outline-success" type="submit"><NavLink to={'/registrati'}>Login</NavLink></button>
+                            <button id={"login"} className="btn btn-outline-success" type="submit"><NavLink to={'/login'}>Login</NavLink></button>
                             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                                 <FontAwesomeIcon id={"bars"} icon={faBars}/>
                             </Button>
