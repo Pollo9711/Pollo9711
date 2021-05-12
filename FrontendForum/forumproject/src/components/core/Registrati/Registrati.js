@@ -17,11 +17,10 @@ const Registrati = () => {
     }
 
     const handleChange = (e) => {
-        const user = e.target.name;
-        console.log(user);
+        const name = e.target.name;
         setFormValue({
             ...formValue,
-            [user]: e.target.value
+            [name]: e.target.value
         })
     }
 
@@ -37,7 +36,7 @@ const Registrati = () => {
                     <input type="email"
                            placeholder={'Email'}
                            name={'email'}
-                           value={formValue.username}
+                           value={formValue.email}
                            onChange={handleChange}
                     />
 
@@ -57,12 +56,11 @@ const Registrati = () => {
                            onChange={handleChange}
                     />
 
+                    <div className={'buttonDiv'}>
+                        <button type={'submit'} className="btn btn-dark">Submit</button>
+                    </div>
+
                 </form>
-
-                <div className={'buttonDiv'}>
-                    <button type={'submit'} class="btn btn-dark">Submit</button>
-                </div>
-
             </div>
 
         </>

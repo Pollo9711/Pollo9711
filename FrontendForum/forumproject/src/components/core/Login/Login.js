@@ -18,11 +18,10 @@ const Login = () => {
     }
 
     const handleChange = (e) => {
-        const user = e.target.name;
-        console.log(user);
+        const name = e.target.name;
         setFormValue({
             ...formValue,
-            [user]: e.target.value
+            [name]: e.target.value
         })
     }
 
@@ -32,31 +31,29 @@ const Login = () => {
             <h2>Login</h2>
 
             <div className={'formLogin'}>
-
-            <form onSubmit={handleSubmit} className={'formInput'}>
+                <form onSubmit={handleSubmit} className={'formInput'}>
                 
-                <p>Your Username:</p>
-                <input type="text"
-                       placeholder={'Username'}
-                       name={'username'}
-                       value={formValue.username}
-                       onChange={handleChange}
-                />
+                    <p>Your Username:</p>
+                    <input type="text"
+                        placeholder={'Username'}
+                        name={'username'}
+                        value={formValue.username}
+                        onChange={handleChange}
+                    />
                 
-                <p>Your Password:</p>
-                <input type="password"
+                    <p>Your Password:</p>
+                    <input type="password"
                        placeholder={'Password'}
                        name={'password'}
                        value={formValue.password}
                        onChange={handleChange}
-                />
-                
+                     />
+
+                    <div className={'buttonDiv'}>
+                        <button type={'submit'} className="btn btn-dark">Submit</button>
+                    </div>
+
             </form>
-
-            <div className={'buttonDiv'}>
-                <button type={'submit'} class="btn btn-dark">Submit</button>
-            </div>
-
             </div>
 
         </>
