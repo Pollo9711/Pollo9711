@@ -1,21 +1,36 @@
 import './PostHome.css';
-import {NavLink} from "react-router-dom";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHeart} from "@fortawesome/free-solid-svg-icons";
+import TopUsers from "../TopUsers/TopUsers";
+import MostLikedPosts from "../MostLikedPosts/MostLikedPosts";
+import PostBox from "../PostBox/PostBox";
+
 
 const PostHome = () => {
     return (
         <>
-            <div className={"postBox"}>
-                <div className={"postHead"}>
-                    <h3><NavLink to={'/'}>Titolo Post</NavLink></h3>
-                    <span className={"postImg"}>AB</span>
+            <div className={"wrapperBox"}>
+
+                <div className={"multiPostBox"}>
+                    <div>
+                        <PostBox/>
+                    </div>
+
+                    <div>
+                        <PostBox/>
+                    </div>
+
+                    <div>
+                        <PostBox/>
+                    </div>
                 </div>
 
-                <div className={"postFoot"}>
-                <NavLink id={"heart"} to={"/home"}><FontAwesomeIcon icon={faHeart}/></NavLink>
-                    <p>Post chiuso o no</p>
+                <div className={"sidePostBox"}>
+
+                    <MostLikedPosts/>
+
+                    <TopUsers/>
+
                 </div>
+
             </div>
         </>
     );

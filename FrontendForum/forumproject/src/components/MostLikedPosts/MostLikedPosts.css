@@ -1,0 +1,15 @@
+.mostLikedBox{
+    background-color: #282c34;
+    color: white;
+    border-radius: 20px;
+    padding: 5%;
+    width: 360px;
+}
+.mostLikedHead h3{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.mostLikedBody{
+    text-align: left;
+    padding: 2%;
+}

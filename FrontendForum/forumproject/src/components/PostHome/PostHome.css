@@ -10,32 +10,42 @@ a:hover{
     background-color: #282c34;
     color: white;   
     border-radius: 20px;
-    width: 50%;
-    margin-top: 5%;
-    padding: 2%;
+    margin-bottom: 50px;
+    padding: 1% 3%;
 }
-.postBox h3{
+.postHead h3{
     padding: 1%;
 }
 .postImg{
-    background-color: blueviolet;
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
+    background-color: rgb(189, 131, 247);
+    height: 60px;
+    width: 60px;
+    border-radius: 31px;
     padding: 2%;
+    margin-right: 45px;
 }
 .postHead{
     display:flex;
     justify-content: space-between;
+    margin: 2%;
 }
 .postFoot{
     display:flex;
     justify-content: space-between;
 }
 #heart{
-    font-size: 25px;
+    font-size: 20px;
     padding: 1%;
+    margin-left: 5%;
 }
 #heart:hover{
-    color: palevioletred;
+    color: #FF6161;
+}
+.wrapperBox{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+.multiPostBox{
+    width: 50%;
 }
