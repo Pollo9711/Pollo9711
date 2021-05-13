@@ -1,10 +1,11 @@
 ﻿using System;
 using ForumProject.Dal.Context.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumProject.Dal.Context
 {
-    public class ForumDbContext : DbContext
+    public class ForumDbContext : IdentityDbContext
     {
         public ForumDbContext(DbContextOptions<ForumDbContext> options) : base(options)
         {

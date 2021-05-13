@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ForumProject.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PostController : ControllerBase
     {
