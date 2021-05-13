@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Route} from "react-router-dom";
@@ -14,12 +13,15 @@ import Login from "./components/core/Login/Login";
 
 
 function App() {
+
+
+
+
   return (
+
       <>
           <Header/>
-
             <div className="App">
-
               <Routes>
                 <Route path={'/'} element={<Home/>} />
                 <Route path={'/post'} element={<ListPost/>} />
@@ -27,12 +29,10 @@ function App() {
                 <Route path={'/registrati'} element={<Registrati/>}/>
                 <Route path={'/login'} element={<Login/>}/>
               </Routes>
-
             </div>
-
           <Footer/>
-
       </>
+
   );
 }
 
