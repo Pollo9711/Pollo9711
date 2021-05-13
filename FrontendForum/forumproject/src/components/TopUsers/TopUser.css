@@ -1,0 +1,26 @@
+.topUserBox{
+    margin-top: 50px;
+    background-color: #282c34;
+    color: white;
+    border-radius: 20px;
+    padding: 5%;
+    width: 360px;
+}
+.topUserHead ul{
+    text-align: left;
+}
+.topUserHead h3{
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+.topUserHead ul li{
+    display: flex;
+    justify-content: space-between;
+}
+.userImg{
+    background-color: rgb(189, 131, 247);
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    padding: 3%;
+}

@@ -1,0 +1,29 @@
+.bachecaBox{
+    margin-top: 50px;
+    background-color: #282c34;
+    color: white;
+    border-radius: 20px;
+    padding: 2%;
+    margin: 3% 3% 5% 3%;
+}
+.bachecaInput{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #555;
+}
+.bachecaInput input{
+    border-radius: 30px;
+    width: 90%;
+    border: none;
+    height: 30px;
+    padding: 2%;
+}
+.bachecaImg{
+    background-color: rgb(189, 131, 247);
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    padding: 2%;
+    margin: 15px;
+}
