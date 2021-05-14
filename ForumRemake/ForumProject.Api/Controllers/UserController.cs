@@ -40,7 +40,7 @@ namespace ForumProject.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(UserDto obj)
+        public ActionResult<UserDomain> Add(UserDto obj)
         {
             try
             {
@@ -56,13 +56,15 @@ namespace ForumProject.Api.Controllers
                 };
                 _logger.LogInformation("info", user);
                 _service.Add(user);
-                return StatusCode(201);
+                return StatusCode(201, user);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
                 return StatusCode(500, e);
             }
+
+            
         }
 
         [HttpDelete("{id}")]

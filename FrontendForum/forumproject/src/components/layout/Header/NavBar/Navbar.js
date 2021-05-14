@@ -45,7 +45,7 @@ const Navbar = () => {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}><NavLink to={'/'}> Home </NavLink></MenuItem>
+                                <MenuItem onClick={handleClose}><NavLink to={'/home'}> Home </NavLink></MenuItem>
                                 <MenuItem onClick={handleClose}><NavLink to={'/post'}> Post </NavLink></MenuItem>
                                 <MenuItem onClick={handleClose}><NavLink to={'/profile'}> Profile </NavLink></MenuItem>
                                 <MenuItem onClick={handleClose}><NavLink to={'/registrati'}> Registrati </NavLink></MenuItem>

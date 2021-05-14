@@ -9,6 +9,7 @@ import Home from "./components/core/Home/Home";
 import Profile from "./components/core/Profile/Profile";
 import Registrati from "./components/core/Registrati/Registrati";
 import Login from "./components/core/Login/Login";
+import PostHome from "./components/PostHome/PostHome";
 
 
 
@@ -23,7 +24,7 @@ function App() {
           <Header/>
             <div className="App">
               <Routes>
-                <Route path={'/'} element={<Home/>} />
+                <Route path={'/home'} element={<PostHome/>} />
                 <Route path={'/post'} element={<ListPost/>} />
                 <Route path={'/profile'} element={<Profile/>} />
                 <Route path={'/registrati'} element={<Registrati/>}/>

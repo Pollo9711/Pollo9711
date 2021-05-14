@@ -1,6 +1,9 @@
 import {useState} from "react";
 import './Registrati.css';
 import {emptyCheckoutRegistratiData} from "../../../utils/dataModels/emptyCheckoutRegistratiData";
+import {postUser} from "../../../services/postUser";
+import Profile from "../Profile/Profile";
+import {NavLink} from "react-router-dom";
 
 const Registrati = () => {
 
@@ -16,17 +19,17 @@ const Registrati = () => {
     const [touched, setTouched] = useState({})
 
 
-
-    const handleSubmit = (e) => {
+    async function handleSubmit  (e) {
         e.preventDefault();
         setFormStatus(FORMSTATUS.SUBMITTING)
         if (isFormValid){
+            await postUser(checkoutData)
             setFormStatus(FORMSTATUS.COMPLETED)
         }
         else{
             setFormStatus(FORMSTATUS.SUBMITTED)
         }
-        console.log(`Email: ${checkoutData.email} | Username: ${checkoutData.username} | Password: ${checkoutData.password}`)
+
     }
 
     const handleBlur = (e) => {
