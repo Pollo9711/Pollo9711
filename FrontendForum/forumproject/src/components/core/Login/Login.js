@@ -1,6 +1,7 @@
 import {useState} from "react";
 import './Login.css';
 import {emptyCheckoutLoginData} from "../../../utils/dataModels/emptyCheckoutLoginData";
+import {getUser} from "../../../services/user/getUser";
 
 
 const Login = () => {
@@ -17,10 +18,11 @@ const Login = () => {
     const [touched, setTouched] = useState({})
 
 
-    const handleSubmit = (e) => {
+    async function handleSubmit (e) {
         e.preventDefault();
         setFormStatus(FORMSTATUS.SUBMITTING)
         if (isFormValid){
+            await getUser(checkoutData)
             setFormStatus(FORMSTATUS.COMPLETED)
         }else{
             setFormStatus(FORMSTATUS.SUBMITTED)
