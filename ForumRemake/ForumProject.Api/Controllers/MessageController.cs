@@ -12,7 +12,7 @@ using ForumProject.Biz.Interfaces.Services;
 namespace ForumProject.Api.Controllers
 {
     
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MessageController : ControllerBase
     {

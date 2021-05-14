@@ -1,29 +1,62 @@
 import {useState} from "react";
 import './Login.css';
+import {emptyCheckoutLoginData} from "../../../utils/dataModels/emptyCheckoutLoginData";
 
-// NB CSS DA FARE
 
 const Login = () => {
 
-    const [inputValue, setInputValue] = useState('');
+    const FORMSTATUS = {
+        IDLE: 'IDLE',
+        SUBMITTING: 'SUBMITTING',
+        SUBMITTED: 'SUBMITTED',
+        COMPLETED: 'COMPLETED'
+    }
 
-    const [formValue, setFormValue] = useState({
-        username: '',
-        password: ''
-    });
+    const [checkoutData, setCheckoutData] = useState(emptyCheckoutLoginData);
+    const [formStatus, setFormStatus] = useState(FORMSTATUS.IDLE);
+    const [touched, setTouched] = useState({})
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(`Username: ${formValue.username} | Password: ${formValue.password}`)
+        setFormStatus(FORMSTATUS.SUBMITTING)
+        if (isFormValid){
+            setFormStatus(FORMSTATUS.COMPLETED)
+        }else{
+            setFormStatus(FORMSTATUS.SUBMITTED)
+        }
+        console.log(`Username: ${checkoutData.username} | Password: ${checkoutData.password}`)
     }
 
-    const handleChange = (e) => {
-        const name = e.target.name;
-        setFormValue({
-            ...formValue,
-            [name]: e.target.value
+    const handleBlur = (e) => {
+        setTouched((previousState) => {
+            return {...previousState,[e.target.name] : true}
         })
     }
+
+    function handleErrors(data){
+        const results = {};
+
+        if (data.username === ''){
+            results.username = 'Username is required!'
+        }
+        if (data.password === ''){
+            results.password = 'Password is required!'
+        }
+
+        return results;
+    }
+
+
+
+    const handleChange = (e) => {
+        setCheckoutData((previousCheckoutData)=>{
+            return {...previousCheckoutData, [e.target.name]: e.target.value}
+        })
+        console.log(checkoutData)
+    }
+    const errors = handleErrors(checkoutData);
+    const isFormValid = Object.keys(errors).length === 0;
 
     return (
         <>
@@ -32,25 +65,49 @@ const Login = () => {
 
             <div className={'formLogin'}>
                 <form onSubmit={handleSubmit} className={'formInput'}>
-                
+
+                    {
+                        !isFormValid && formStatus === FORMSTATUS.SUBMITTED
+                            ? <div>
+                                <h4>Ricontrolla il form!</h4>
+                            </div>
+                            : ''
+                    }
+
                     <p>Your Username:</p>
+
                     <input type="text"
                         placeholder={'Username'}
                         name={'username'}
-                        value={formValue.username}
+                        value={checkoutData.username}
                         onChange={handleChange}
+                        onBlur={handleBlur}
                     />
+
+                    <h6>
+                        {touched.username ? errors.username : ''}
+                    </h6>
                 
                     <p>Your Password:</p>
                     <input type="password"
                        placeholder={'Password'}
                        name={'password'}
-                       value={formValue.password}
+                       value={checkoutData.password}
                        onChange={handleChange}
+                       onBlur={handleBlur}
                      />
 
+                    <h6>
+                        {touched.password ? errors.password : ''}
+                    </h6>
+
                     <div className={'buttonDiv'}>
-                        <button type={'submit'} className="btn btn-dark">Submit</button>
+                        <button
+                            disabled={formStatus === FORMSTATUS.SUBMITTING}
+                            type={'submit'}
+                            className="btn btn-dark">
+                            Submit
+                        </button>
                     </div>
 
             </form>

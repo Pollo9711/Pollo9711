@@ -12,10 +12,17 @@ p{
     border-radius: 5px;
     width: 50%;
 }
-.buttonLogin{
-    
-}
+
 .buttonDiv{
     padding: 4%;
+}
+
+h6 {
+    color: red;
+    font-size: 14px;
+}
+
+h4{
+    color: red;
 }
 

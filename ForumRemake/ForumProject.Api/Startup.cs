@@ -1,22 +1,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using ForumProject.Biz.Interfaces.Repositories;
 using ForumProject.Biz.Interfaces.Services;
 using ForumProject.Biz.Services;
+using ForumProject.Biz.Services.Config;
 using ForumProject.Dal.Context;
 using ForumProject.Dal.Repositories;
 using ForumProject.Mapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace ForumProject.Api
@@ -38,12 +36,40 @@ namespace ForumProject.Api
             services.AddDbContext<ForumDbContext>(opt => opt.UseSqlServer(
                 Configuration.GetValue<string>("ConnectionStrings:ForumDbConnectionString")));
 
+            services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(jwt =>
+            {
+                var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("JwtConfig:Secret"));
+
+                jwt.SaveToken = true;
+                jwt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    RequireExpirationTime = false,
+                    ValidateLifetime = true
+                };
+            });
+
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ForumDbContext>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddAutoMapper(typeof(MappingProfiles));
 
@@ -55,6 +81,7 @@ namespace ForumProject.Api
                 });
             });
 
+            services.AddControllers();
             services.AddSwaggerGen(act =>
             {
                 act.SwaggerDoc("v1", new OpenApiInfo { Title = "ForumProject.Api", Version = "v1" });
@@ -76,6 +103,8 @@ namespace ForumProject.Api
             app.UseRouting();
 
             app.UseCors("myPolicy");
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
