@@ -2,8 +2,7 @@ import {useState} from "react";
 import './Registrati.css';
 import {emptyCheckoutRegistratiData} from "../../../utils/dataModels/emptyCheckoutRegistratiData";
 import {postUser} from "../../../services/user/postUser";
-import Profile from "../Profile/Profile";
-import {NavLink} from "react-router-dom";
+
 
 const Registrati = () => {
 
