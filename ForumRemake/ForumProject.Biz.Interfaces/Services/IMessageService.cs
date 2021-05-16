@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ForumProject.Biz.Domain;
 
 namespace ForumProject.Biz.Interfaces.Services
 {
     public interface IMessageService
     {
-        public void Add(MessageDomain element);
+        Task Add(MessageDomain element);
 
-        public MessageDomain DeleteById(Guid id);
+        Task<MessageDomain> DeleteById(Guid id);
 
-        public List<MessageDomain> GetAll();
+        Task<List<MessageDomain>> GetAll();
 
-        public MessageDomain GetById(Guid id);
+        Task<MessageDomain> GetById(Guid id);
 
-        public void Update(MessageDomain entity);
+        Task Update(MessageDomain entity);
     }
 }

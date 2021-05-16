@@ -16,12 +16,9 @@ namespace ForumProject.Biz.Domain
 
         public DateTime PublishTime { get; set; }
 
-        public UserDomain User { get; set; }
-
-        public Guid UserId { get; set; }
+        public Guid WrittenBy { get; set; }
 
         public Guid PostId { get; set; }
 
-        public PostDomain Post { get; set; }
     }
 }

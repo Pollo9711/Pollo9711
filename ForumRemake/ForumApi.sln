@@ -9,23 +9,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{95
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{8EDB3692-968C-47C4-8BEA-3D797EB41A4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Api", "ForumProject.Api\ForumProject.Api.csproj", "{DF0C4748-4FCD-4F88-95D5-3666EEDE09CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Api", "ForumProject.Api\ForumProject.Api.csproj", "{DF0C4748-4FCD-4F88-95D5-3666EEDE09CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Dal.Context", "ForumProject.Dal.Context\ForumProject.Dal.Context.csproj", "{C68BAE47-D648-46A3-BB5C-5240D6F49150}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Dal.Context", "ForumProject.Dal.Context\ForumProject.Dal.Context.csproj", "{C68BAE47-D648-46A3-BB5C-5240D6F49150}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Dal.Repositories", "ForumProject.Dal.Repositories\ForumProject.Dal.Repositories.csproj", "{EF3359E2-6322-4B37-BA8A-F22F7B5E6BAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Dal.Repositories", "ForumProject.Dal.Repositories\ForumProject.Dal.Repositories.csproj", "{EF3359E2-6322-4B37-BA8A-F22F7B5E6BAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Mapper", "ForumProject.Mapper\ForumProject.Mapper.csproj", "{E27EA016-3BC7-489F-8D38-F7A75DBF35BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Mapper", "ForumProject.Mapper\ForumProject.Mapper.csproj", "{E27EA016-3BC7-489F-8D38-F7A75DBF35BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Biz.Domain", "ForumProject.Biz.Domain\ForumProject.Biz.Domain.csproj", "{ECABF5AC-7A0A-4E8C-8314-A17010CEF00E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Biz.Domain", "ForumProject.Biz.Domain\ForumProject.Biz.Domain.csproj", "{ECABF5AC-7A0A-4E8C-8314-A17010CEF00E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Biz.Interfaces", "ForumProject.Biz.Interfaces\ForumProject.Biz.Interfaces.csproj", "{97A465C2-5E83-48E1-BD35-61A6D075D72B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Biz.Interfaces", "ForumProject.Biz.Interfaces\ForumProject.Biz.Interfaces.csproj", "{97A465C2-5E83-48E1-BD35-61A6D075D72B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Biz.Services", "ForumProject.Biz.Services\ForumProject.Biz.Services.csproj", "{9511F1F2-B583-4DA8-851A-37242C2A6E2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Biz.Services", "ForumProject.Biz.Services\ForumProject.Biz.Services.csproj", "{9511F1F2-B583-4DA8-851A-37242C2A6E2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Dal.Tests", "ForumProject.Dal.Tests\ForumProject.Dal.Tests.csproj", "{5633E001-0D3B-4D60-A4CD-78FD508FA01D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Dal.Tests", "ForumProject.Dal.Tests\ForumProject.Dal.Tests.csproj", "{5633E001-0D3B-4D60-A4CD-78FD508FA01D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumProject.Biz.Tests", "ForumProject.Biz.Tests\ForumProject.Biz.Tests.csproj", "{86908228-8E83-4AE1-9C2E-3CBD02921B06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumProject.Biz.Tests", "ForumProject.Biz.Tests\ForumProject.Biz.Tests.csproj", "{86908228-8E83-4AE1-9C2E-3CBD02921B06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

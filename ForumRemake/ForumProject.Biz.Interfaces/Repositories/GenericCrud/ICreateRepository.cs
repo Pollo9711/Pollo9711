@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace ForumProject.Biz.Interfaces
 {
     public interface ICreateRepository<T>
     {
-        void Add(T element);
+        Task Add(T element);
     }
 }

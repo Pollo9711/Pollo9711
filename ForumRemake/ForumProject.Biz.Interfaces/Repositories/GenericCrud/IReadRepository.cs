@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ForumProject.Biz.Interfaces
 {
     public interface IReadRepository<T, TKey>
     {
-        List<T> GetAll();
+        Task<List<T>> GetAll();
 
-        T GetById(TKey id);
+        Task<T> GetById(TKey id);
     }
 }

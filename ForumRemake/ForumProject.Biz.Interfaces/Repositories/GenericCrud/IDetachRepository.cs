@@ -1,7 +1,9 @@
-﻿namespace ForumProject.Biz.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace ForumProject.Biz.Interfaces
 {
     public interface IDetachRepository
     {
-        public void DetachAllEntities();
+        Task DetachAllEntities();
     }
 }

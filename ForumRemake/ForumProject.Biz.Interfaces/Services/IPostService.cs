@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ForumProject.Biz.Domain;
 
 namespace ForumProject.Biz.Interfaces.Services
 {
     public interface IPostService
     {
-        public void Add(PostDomain element);
+        Task Add(PostDomain element);
 
-        public PostDomain DeleteById(Guid id);
+        Task<PostDomain> DeleteById(Guid id);
 
-        public List<PostDomain> GetAll();
+        Task<List<PostDomain>> GetAll();
 
-        public PostDomain GetById(Guid id);
+        Task<PostDomain> GetById(Guid id);
 
-        public void Update(PostDomain entity);
+        Task Update(PostDomain entity);
+
+        Task<List<PostDomain>> GetByTitle(string title);
+
+        Task<List<PostDomain>> GetByCategory(string category);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Domain.Exceptions;
 using ForumProject.Biz.Interfaces.Repositories;
@@ -16,54 +17,54 @@ namespace ForumProject.Biz.Services
             _repository = repository;
         }
 
-        public void Add(MessageDomain element)
+        public async Task Add(MessageDomain element)
         {
             if (element is null)
                 throw new InvalidInputException("element");
 
-            if (_repository.GetById(element.Id) != null)
+            if (await _repository.GetById(element.Id) != null)
                 throw new DbRuleException(element.Id.ToString());
 
-            _repository.Add(element);
+            await _repository.Add(element);
         }
 
-        public MessageDomain DeleteById(Guid id)
+        public async Task<MessageDomain> DeleteById(Guid id)
         {
-            var toDelete = _repository.GetById(id);
+            var toDelete = await _repository.GetById(id);
             if (toDelete is null)
                 throw new DbRuleException(id.ToString());
 
-            _repository.DetachAllEntities();
-            _repository.Delete(toDelete);
+            await _repository.DetachAllEntities();
+            await _repository.Delete(toDelete);
 
             return toDelete;
         }
 
-        public List<MessageDomain> GetAll()
+        public async Task<List<MessageDomain>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public MessageDomain GetById(Guid id)
+        public async Task<MessageDomain> GetById(Guid id)
         {
-            var toGet = _repository.GetById(id);
+            var toGet = await _repository.GetById(id);
             if (toGet is null)
                 throw new DbRuleException(id.ToString());
 
             return toGet;
         }
 
-        public void Update(MessageDomain entity)
+        public async Task Update(MessageDomain entity)
         {
             if (entity is null)
                 throw new InvalidInputException("input");
 
-            var toUpdate = _repository.GetById(entity.Id);
+            var toUpdate = await _repository.GetById(entity.Id);
             if (toUpdate is null)
                 throw new DbRuleException("input");
 
-            _repository.DetachAllEntities();
-            _repository.Update(entity);
+            await _repository.DetachAllEntities();
+            await _repository.Update(entity);
         }
     }
 }

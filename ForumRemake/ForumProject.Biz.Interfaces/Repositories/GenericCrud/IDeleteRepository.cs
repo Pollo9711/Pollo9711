@@ -1,7 +1,9 @@
-﻿namespace ForumProject.Biz.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace ForumProject.Biz.Interfaces
 {
     public interface IDeleteRepository<T>
     {
-        void Delete(T entity);
+        Task Delete(T entity);
     }
 }

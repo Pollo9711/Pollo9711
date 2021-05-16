@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Interfaces.Repositories;
@@ -21,47 +22,61 @@ namespace ForumProject.Dal.Repositories
             _mapper = mapper;
         }
 
-        public void Add(PostDomain element)
+        public async Task Add(PostDomain element)
         {
             var toAdd = _mapper.Map<PostEntity>(element);
-            _context.Posts.Add(toAdd);
-            _context.SaveChanges();
+            await _context.Posts.AddAsync(toAdd);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(PostDomain entity)
+        public async Task Delete(PostDomain entity)
         {
             var toAdd = _mapper.Map<PostEntity>(entity);
             _context.Posts.Remove(toAdd);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public List<PostDomain> GetAll()
+        public async Task<List<PostDomain>> GetAll()
         {
             var toConvert = _context.Posts;
-            return _mapper.ProjectTo<PostDomain>(toConvert).ToList();
+            return await _mapper.ProjectTo<PostDomain>(toConvert).ToListAsync();
         }
 
-        public PostDomain GetById(Guid id)
+        public async Task<PostDomain> GetById(Guid id)
         {
-            var toConvert = _context.Posts
+            var toConvert = await _context.Posts
                 .Include(p => p.Messages)
-                .FirstOrDefault(p => p.Id.Equals(id));
+                .FirstOrDefaultAsync(p => p.Id.Equals(id));
             return _mapper.Map<PostDomain>(toConvert);
         }
 
-        public void Update(PostDomain entity)
+        public async Task Update(PostDomain entity)
         {
             var toAdd = _mapper.Map<PostEntity>(entity);
             _context.Posts.Update(toAdd);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DetachAllEntities()
+        public async Task<List<PostDomain>> GetByTitle(string title)
         {
-            foreach (var entry in _context.ChangeTracker.Entries())
-            {
-                entry.State = EntityState.Detached;
-            }
+            var toReturn = _context.Posts;
+            return await _mapper.ProjectTo<PostDomain>(toReturn).Where(p => p.Title.Equals(title)).ToListAsync();
+        }
+
+        public async Task<List<PostDomain>> GetByCategory(string category)
+        {
+            var toReturn = _context.Posts;
+            return await _mapper.ProjectTo<PostDomain>(toReturn).Where(p => p.Category.Equals(category)).ToListAsync();
+        }
+
+        public async Task DetachAllEntities()
+        {
+            await Task.Run(() => { 
+                foreach (var entry in _context.ChangeTracker.Entries())
+                {
+                    entry.State = EntityState.Detached;
+                }
+            });
         }
     }
 }

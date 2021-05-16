@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Domain.Exceptions;
 using ForumProject.Biz.Interfaces.Repositories;
@@ -16,44 +17,58 @@ namespace ForumProject.Biz.Services
             _repository = repository;
         }
 
-        public void Add(PostDomain element)
+        public async Task Add(PostDomain element)
         {
             if (element is null)
                 throw new InvalidInputException("element");
 
-            if (_repository.GetById(element.Id) != null)
+            if (await _repository.GetById(element.Id) != null)
                 throw new DbRuleException(element.Id.ToString());
 
-            _repository.Add(element);
+            await _repository.Add(element);
         }
 
-        public PostDomain DeleteById(Guid id)
+        public async Task<PostDomain> DeleteById(Guid id)
         {
-            var toDelete = _repository.GetById(id);
+            var toDelete = await _repository.GetById(id);
             if (toDelete is null)
                 throw new DbRuleException(id.ToString());
 
-            _repository.DetachAllEntities();
-            _repository.Delete(toDelete);
+            await _repository.DetachAllEntities();
+            await _repository.Delete(toDelete);
 
             return toDelete;
         }
 
-        public List<PostDomain> GetAll()
+        public async Task<List<PostDomain>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public PostDomain GetById(Guid id)
+        public async Task<List<PostDomain>> GetByCategory(string category)
         {
-            var toGet = _repository.GetById(id);
+            if (category == string.Empty)
+                throw new InvalidInputException("input");
+            return await _repository.GetByCategory(category);
+        }
+
+        public async Task<PostDomain> GetById(Guid id)
+        {
+            var toGet = await _repository.GetById(id);
             if (toGet is null)
                 throw new DbRuleException(id.ToString());
 
             return toGet;
         }
 
-        public void Update(PostDomain entity)
+        public async Task<List<PostDomain>> GetByTitle(string title)
+        {
+            if (title == string.Empty)
+                throw new InvalidInputException("input");
+            return await _repository.GetByTitle(title);
+        }
+
+        public async Task Update(PostDomain entity)
         {
             if (entity is null)
                 throw new InvalidInputException("input");
@@ -62,8 +77,8 @@ namespace ForumProject.Biz.Services
             if (toUpdate is null)
                 throw new DbRuleException("input");
 
-            _repository.DetachAllEntities();
-            _repository.Update(entity);
+            await _repository.DetachAllEntities();
+            await _repository.Update(entity);
         }
     }
 }

@@ -18,9 +18,11 @@ namespace ForumProject.Dal.Context.Entities
         [Required]
         public string Email { get; set; }
 
-        public DateTime BanTime { get; set; }
+        public DateTime? BanTime { get; set; }
 
-        public virtual List<MessageEntity> Messages { get; set; }
+        public DateTime RegisteredOn { get; set; }
+
+        public List<PostEntity> Posts { get; set; }
 
     }
 }

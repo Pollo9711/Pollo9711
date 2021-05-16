@@ -13,8 +13,10 @@ namespace ForumProject.Biz.Domain
 
         public string Email { get; set; }
 
-        public DateTime BanTime { get; set; }
+        public DateTime? BanTime { get; set; }
 
-        public List<MessageDomain> Messages { get; set; }
+        public DateTime RegisteredOn { get; set; }
+
+        public List<PostDomain> Posts { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Interfaces.Repositories;
@@ -21,47 +22,55 @@ namespace ForumProject.Dal.Repositories
             _mapper = mapper;
         }
 
-        public List<UserDomain> GetAll()
+        public async Task<List<UserDomain>> GetAll()
         {
             var toConvert = _context.Users;
-            return _mapper.ProjectTo<UserDomain>(toConvert).ToList();
+            return await _mapper.ProjectTo<UserDomain>(toConvert).ToListAsync();
         }
 
-        public UserDomain GetById(Guid id)
+        public async Task<UserDomain> GetById(Guid id)
         {
-            var toConvert = _context.Users
-                .Include(u => u.Messages)
-                .FirstOrDefault(u => u.Id.Equals(id));
+            var toConvert = await _context.Users
+                .Include(u => u.Posts)
+                .FirstOrDefaultAsync(u => u.Id.Equals(id));
             return _mapper.Map<UserDomain>(toConvert);
         }
 
-        public void Update(UserDomain entity)
+        public async Task Update(UserDomain entity)
         {
             var toUpdate = _mapper.Map<UserEntity>(entity);
             _context.Users.Update(toUpdate);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Add(UserDomain element)
+        public async Task Add(UserDomain element)
         {
             var toAdd = _mapper.Map<UserEntity>(element);
-            _context.Users.Add(toAdd);
-            _context.SaveChanges();
+            await _context.Users.AddAsync(toAdd);
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(UserDomain entity)
+        public async Task Delete(UserDomain entity)
         {
             var toDelete = _mapper.Map<UserEntity>(entity);
             _context.Users.Remove(toDelete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DetachAllEntities()
+        public async Task<UserDomain> GetByCredentials(string username, string password)
         {
-            foreach (var entry in _context.ChangeTracker.Entries())
-            {
-                entry.State = EntityState.Detached;
-            }
+            var toReturn = await _context.Users.FirstOrDefaultAsync(u => u.Username.Equals(username) && u.Password.Equals(password));
+            return _mapper.Map<UserDomain>(toReturn);
+        }
+
+        public async Task DetachAllEntities()
+        {
+            await Task.Run(() => { 
+                foreach (var entry in _context.ChangeTracker.Entries())
+                {
+                    entry.State = EntityState.Detached;
+                }
+            });
         }
     }
 }

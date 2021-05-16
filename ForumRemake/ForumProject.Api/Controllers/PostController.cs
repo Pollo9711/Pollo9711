@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ForumProject.Api.ViewModels;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using ForumProject.Dal.Context.Dto;
+using System.Collections.Generic;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace ForumProject.Api.Controllers
 {
@@ -16,94 +15,113 @@ namespace ForumProject.Api.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService _postService;
-
         private readonly ILogger<PostController> _logger;
+        private readonly IMapper _mapper;
 
-        public PostController(IPostService postService, ILogger<PostController> logger)
+        public PostController(IPostService postService, ILogger<PostController> logger, IMapper mapper)
         {
             _postService = postService;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                _postService.DeleteById(id);
-                return Ok();
+                await _postService.DeleteById(id);
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpPost]
-        public ActionResult Add(PostDto obj)
+        public async Task<ActionResult> Add(PostCreationDto obj)
         {
             try
             {
-                var post = new PostDomain
-                {
-                    Id = Guid.NewGuid(),
-                    Category = obj.Category,
-                    Description = obj.Description,
-                    IsClosed = false,
-                    Title = obj.Title,
-                    PostPoint = 0,
-                    PublishTime = DateTime.Now,
-                    Messages = null
-                };
-
-                _postService.Add(post);
-                return StatusCode(201);
+                await _postService.Add(_mapper.Map<PostDomain>(obj));
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpPut]
-        public ActionResult Update(PostDomain obj)
+        public async Task<ActionResult> Update(PostDomain obj)
         {
             try
             {
-                _postService.Update(obj);
-                return Ok();
+                await _postService.Update(obj);
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetById(Guid id)
+        public async Task<ActionResult<UserDomain>> GetById(Guid id)
         {
             try
             {
-                var post = _postService.GetById(id);
+                var post = await _postService.GetById(id);
 
-                return Ok(new PostDto(post));
+                return Ok(post);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("search/title/{title}")]
+        public async Task<ActionResult<List<PostDomain>>> GetByTitle(string title)
+        {
+            try
+            {
+                var post = await _postService.GetByTitle(title);
+                return Ok(post);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpGet("search/category/{category}")]
+        public async Task<ActionResult<List<PostDomain>>> GetByCategory(string category)
+        {
+            try
+            {
+                var post = await _postService.GetByCategory(category);
+                return Ok(post);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(500);
             }
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        public async Task<ActionResult<List<PostDomain>>> GetAll()
         {
             try
             {
-                var list = _postService.GetAll();
+                var list = await _postService.GetAll();
                 return Ok(list);
             }
             catch (Exception e)

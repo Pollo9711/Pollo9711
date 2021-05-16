@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Domain.Exceptions;
 using ForumProject.Biz.Interfaces.Repositories;
@@ -16,21 +17,21 @@ namespace ForumProject.Biz.Services
             _repository = repository;
         }
 
-        public List<UserDomain> GetAll()
+        public async Task<List<UserDomain>> GetAll()
         {
-            return _repository.GetAll();
+            return await _repository.GetAll();
         }
 
-        public UserDomain GetById(Guid id)
+        public async Task<UserDomain> GetById(Guid id)
         {
-            var toGet = _repository.GetById(id);
+            var toGet = await _repository.GetById(id);
             if (toGet is null)
                 throw new DbRuleException(id.ToString());
 
             return toGet;
         }
 
-        public void Update(UserDomain entity)
+        public async Task Update(UserDomain entity)
         {
             if (entity is null)
                 throw new InvalidInputException("input");
@@ -39,30 +40,37 @@ namespace ForumProject.Biz.Services
             if (toUpdate is null)
                 throw new DbRuleException("input");
 
-            _repository.DetachAllEntities();
-            _repository.Update(entity);
+            await _repository.DetachAllEntities();
+            await _repository.Update(entity);
         }
 
-        public void Add(UserDomain element)
+        public async Task Add(UserDomain element)
         {
             if (element is null)
                 throw new InvalidInputException("input");
 
-            if (_repository.GetById(element.Id) != null)
+            if (await _repository.GetById(element.Id) != null)
                 throw new DbRuleException("input");
 
-            _repository.Add(element);
+            await _repository.Add(element);
         }
 
-        public UserDomain DeleteById(Guid id)
+        public async Task<UserDomain> DeleteById(Guid id)
         {
-            var toDelete = _repository.GetById(id);
+            var toDelete = await _repository.GetById(id);
             if (toDelete is null)
                 throw new DbRuleException("input");
 
-            _repository.DetachAllEntities();
-            _repository.Delete(toDelete);
+            await _repository.DetachAllEntities();
+            await _repository.Delete(toDelete);
             return toDelete;
+        }
+
+        public async Task<UserDomain> Login(string username, string password)
+        {
+            if (username == string.Empty || password == string.Empty)
+                throw new InvalidInputException("input");
+            return await _repository.GetByCredentials(username, password);
         }
     }
 }

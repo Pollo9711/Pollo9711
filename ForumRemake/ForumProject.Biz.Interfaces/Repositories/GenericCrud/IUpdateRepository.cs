@@ -1,7 +1,9 @@
-﻿namespace ForumProject.Biz.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace ForumProject.Biz.Interfaces
 {
     public interface IUpdateRepository<T>
     {
-        void Update(T entity);
+        Task Update(T entity);
     }
 }

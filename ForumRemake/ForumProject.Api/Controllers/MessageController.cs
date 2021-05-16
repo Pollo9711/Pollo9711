@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ForumProject.Api.ViewModels;
 using ForumProject.Biz.Domain;
 using Microsoft.Extensions.Logging;
 using ForumProject.Biz.Interfaces.Services;
+using ForumProject.Dal.Context.Dto;
+using System.Collections.Generic;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace ForumProject.Api.Controllers
 {
@@ -17,96 +16,89 @@ namespace ForumProject.Api.Controllers
     {
         private readonly IMessageService _messageService;
         private readonly ILogger<MessageController> _logger;
+        private readonly IMapper _mapper;
 
-        public MessageController(IMessageService messageService, ILogger<MessageController> logger)
+        public MessageController(IMessageService messageService, ILogger<MessageController> logger, IMapper mapper)
         {
             _messageService = messageService;
             _logger = logger;
+            _mapper = mapper;
         }
+
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                _messageService.DeleteById(id);
-                return Ok();
+                await _messageService.DeleteById(id);
+                return StatusCode(200);
 
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
 
         }
 
         [HttpPost]
-        public ActionResult Add(MessageDto obj)
+        public async Task<ActionResult> Add(MessageCreationDto obj)
         {
             try
             {
-                var message = new MessageDomain
-                {
-                    Id = Guid.NewGuid(),
-                    Text = obj.Text,
-                    IsReported = false,
-                    MessagePoint = 0,
-                    PublishTime = DateTime.Now,
-                    PostId =obj.Post,
-                    UserId = obj.User
-                };
-                _messageService.Add(message);
-                return Ok();
+                await _messageService.Add(_mapper.Map<MessageDomain>(obj));
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpPut]
-        public ActionResult Update(MessageDomain obj)
+        public async Task<ActionResult> Update(MessageDomain obj)
         {
             try
             {
-                _messageService.Update(obj);
-                return Ok();
+                await _messageService.Update(obj);
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetById(Guid id)
+        public async Task<ActionResult<MessageDomain>> GetById(Guid id)
         {
             try
             {
-                var message = _messageService.GetById(id);
-                return Ok(new MessageDto(message));
+                var message = await _messageService.GetById(id);
+                return Ok(message);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        public async Task<ActionResult<List<MessageDomain>>> GetAll()
         {
             try
             {
-                var list = _messageService.GetAll();
+                var list = await _messageService.GetAll();
                 return Ok(list);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
     }

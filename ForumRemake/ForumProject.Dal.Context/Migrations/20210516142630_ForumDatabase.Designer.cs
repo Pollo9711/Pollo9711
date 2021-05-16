@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumProject.Dal.Context.Migrations
 {
     [DbContext(typeof(ForumDbContext))]
-    [Migration("20210429080133_Initial")]
-    partial class Initial
+    [Migration("20210516142630_ForumDatabase")]
+    partial class ForumDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,14 +43,12 @@ namespace ForumProject.Dal.Context.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid>("WrittenBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Messages");
                 });
@@ -61,8 +59,9 @@ namespace ForumProject.Dal.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -81,7 +80,12 @@ namespace ForumProject.Dal.Context.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
@@ -92,7 +96,7 @@ namespace ForumProject.Dal.Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("BanTime")
+                    b.Property<DateTime?>("BanTime")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -102,6 +106,9 @@ namespace ForumProject.Dal.Context.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegisteredOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -119,9 +126,12 @@ namespace ForumProject.Dal.Context.Migrations
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
+            modelBuilder.Entity("ForumProject.Dal.Context.Entities.PostEntity", b =>
+                {
                     b.HasOne("ForumProject.Dal.Context.Entities.UserEntity", "User")
-                        .WithMany("Messages")
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

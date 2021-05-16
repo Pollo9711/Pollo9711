@@ -19,11 +19,7 @@ namespace ForumProject.Dal.Context.Entities
         [Required]
         public DateTime PublishTime { get; set; }
 
-        [ForeignKey("UserId")]
-        public UserEntity User { get; set; }
-
-        [Required]
-        public Guid UserId { get; set; }
+        public Guid WrittenBy { get; set; }
 
         [ForeignKey("PostId")]
         public PostEntity Post { get; set; }

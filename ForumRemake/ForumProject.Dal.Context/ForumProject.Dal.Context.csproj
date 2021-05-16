@@ -13,8 +13,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ForumProject.Biz.Domain\ForumProject.Biz.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

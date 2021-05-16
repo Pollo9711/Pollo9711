@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ForumProject.Biz.Domain;
 
 namespace ForumProject.Dal.Context.Entities
 {
@@ -15,7 +14,7 @@ namespace ForumProject.Dal.Context.Entities
         public string Title { get; set; }
 
         [Required]
-        public CategoryEnum Category { get; set; }
+        public string Category { get; set; }
 
         [Required]
         public string Description { get; set; }
@@ -27,7 +26,13 @@ namespace ForumProject.Dal.Context.Entities
         [Required]
         public DateTime PublishTime { get; set; }
 
-        public virtual List<MessageEntity> Messages { get; set; }
+        [ForeignKey("UserId")]
+        public UserEntity User { get; set; }
+
+        [Required]
+        public Guid UserId { get; set; }
+
+        public List<MessageEntity> Messages { get; set; }
 
     }
 }

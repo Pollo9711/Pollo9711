@@ -9,7 +9,7 @@ namespace ForumProject.Biz.Domain
 
         public string Title { get; set; }
 
-        public CategoryEnum Category { get; set; }
+        public string Category { get; set; }
 
         public string Description { get; set; }
 
@@ -18,6 +18,8 @@ namespace ForumProject.Biz.Domain
         public bool IsClosed { get; set; }
 
         public DateTime PublishTime { get; set; }
+
+        public Guid UserId { get; set; }
 
         public List<MessageDomain> Messages { get; set; }
     }

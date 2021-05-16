@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ForumProject.Api.ViewModels;
 using ForumProject.Biz.Domain;
 using ForumProject.Biz.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using ForumProject.Dal.Context.Dto;
+using System.Collections.Generic;
+using AutoMapper;
+using System.Threading.Tasks;
 
 namespace ForumProject.Api.Controllers
 {
@@ -17,99 +16,105 @@ namespace ForumProject.Api.Controllers
     {
         private readonly IUserService _service;
         private readonly ILogger<UserController> _logger;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService service, ILogger<UserController> logger)
+        public UserController(IUserService service, ILogger<UserController> logger, IMapper mapper)
         {
             _service = service;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpPut]
-        public ActionResult Update(UserDomain obj)
+        public async Task<ActionResult> Update(UserDomain obj)
         {
             try
             {
-                _service.Update(obj);
-                return StatusCode(201);
+                await _service.Update(obj);
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpPost]
-        public ActionResult Add(UserDto obj)
+        public async Task<ActionResult> Add(UserCreationDto obj)
         {
             try
             {
-                _logger.LogInformation("info", obj);
-                var user = new UserDomain
-                {
-                    Id = Guid.NewGuid(),
-                    Email = obj.Email,
-                    Password = obj.Password,
-                    Username = obj.Username,
-                    BanTime = DateTime.MinValue,
-                    Messages = null
-                };
-                _logger.LogInformation("info", user);
-                _service.Add(user);
-                return StatusCode(201);
+                await _service.Add(_mapper.Map<UserDomain>(obj));
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                _service.DeleteById(id);
-                return StatusCode(201);
+                await _service.DeleteById(id);
+                return StatusCode(200);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpGet]
-        public ActionResult GetAll()
+        public async Task<ActionResult<List<UserDomain>>> GetAll()
         {
             try
             {
-                var list = _service.GetAll();
+                var list = await _service.GetAll();
                 return Ok(list);
 
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
             }
         }
 
         [HttpGet("{id}")]
-        public ActionResult<UserDomain> GetById(Guid id)
+        public async Task<ActionResult<UserDomain>> GetById(Guid id)
         {
             try
             {
-                var user = _service.GetById(id);
-
-                return Ok(new UserDto(user));
-
+                var user = await _service.GetById(id);
+                return Ok(user);
             }
             catch (Exception e)
             {
                 _logger.LogError(e, e.Message);
-                return StatusCode(500, e);
+                return StatusCode(500);
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserDomain>> Login(string username, string password)
+        {
+            try
+            {
+                var toCheck = await _service.Login(username, password);
+                if (toCheck is null)
+                    return StatusCode(403);
+                return Ok(toCheck);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return StatusCode(500);
             }
         }
     }
