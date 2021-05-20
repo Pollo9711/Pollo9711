@@ -1,20 +1,36 @@
 import "./Profile.css"
-import React from 'react';
+import React, {useState} from 'react';
 import CustomAccordion from "../../shared/customAccordion/CustomAccordion";
 import {IconButton} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import {useStyles} from "../../../utils/CssClasses";
+import useFetchAll from "../../../services/useFetchAll";
 
 
 
 
 
-const Profile = () => {
+const Profile = (props) => {
+
+    const {user, updateUser} = props
+
+    const urls = user.map((obj) => `/user/${obj.id}`);
+
+    const {data: users, loading, error} = useFetchAll(urls);
 
     const classes = useStyles();
 
+
+
+
+
+
+
+    if (loading) return <h1>Loading ...</h1>
+    if (error) return <h1>Tutto ok bro</h1>
         return (
         <>
+
             <div className={"profile"}>
                 <div className={"image"}>
 
