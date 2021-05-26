@@ -8,8 +8,6 @@ import useFetchAll from "../../../services/useFetchAll";
 
 
 
-
-
 const Profile = (props) => {
 
     const {user, updateUser} = props
@@ -37,6 +35,7 @@ const Profile = (props) => {
                 </div>
                 <h6>#ID:</h6>
                 <h3>Username:</h3>
+                <input />
                 <h5>Email:</h5>
                 <div>
                     <IconButton  id={"add"} aria-label="Add">
